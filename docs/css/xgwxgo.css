@@ -8,11 +8,25 @@ html, body {
 }
 
 body {
-  display: flex;
-  align-items: center;
+  display: initial;
   font-family: monospace;
   justify-content: center;
   background-color: #1d212b;
+}
+
+#header {
+  top: 2vw;
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  color: #F2F1EF;
+}
+
+#content {
+  top: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 div.big-box {
@@ -26,8 +40,28 @@ div.big-box {
   animation: textColor 10s ease infinite;
 }
 
-div.big-box:first-child {
-  margin-right: 8vw;
+#additional-params {
+  margin: 1vw;
+}
+
+#additional-params input {
+  position: relative;
+  width: 7vw;
+  height: 2vw;
+  line-height: 2vw;
+  text-align: center;
+  color: #0fffc1;
+  background-color: transparent;
+  border: 1px #252B37;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  /* For IE and modern versions of Chrome */
+  -moz-box-sizing: border-box;
+  /* For Firefox                          */
+  -webkit-box-sizing: border-box;
+  /* For Safari                           */
 }
 
 div.big-box:after {
