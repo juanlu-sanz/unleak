@@ -6,6 +6,8 @@ var unleak = function () {
     var elSecret = document.getElementById('secret');
     var elResult = document.getElementById('result');
 
+    var elFoundSecret = document.getElementById('result-secret');
+
     //Main object and return
     var handler = {};
 
@@ -13,14 +15,20 @@ var unleak = function () {
     handler.init = function (selector) {
         classEvents();
         encode();
-
     };
 
     function classEvents() {
         elText.addEventListener('keyup', function () {
             encode();
+            decode();
+        });
+        elSecret.addEventListener('keyup', function () {
+            encode();
+            decode();
         });
     }
+
+
 
     function encode() {
         let secret = elSecret.value;
@@ -29,6 +37,14 @@ var unleak = function () {
         let content = elText.value;
         let encodedTextWithSecret = insertSecret('secondChar', content, encodedSecret);
         elResult.value = encodedTextWithSecret
+    }
+
+    function decode() {
+        let fullText = elText.value;
+        let zeroWidthUsername = fullText.replace(/[^​‌‍﻿]/g, '');
+        const binaryUsername = zeroWidthToBinary(zeroWidthUsername);
+        const textUsername = binaryToText(binaryUsername);
+        elFoundSecret.innerText = textUsername;
     }
 
     function insertSecret(method, text, secret) {
@@ -72,13 +88,13 @@ var unleak = function () {
     }
 
     function zeroWidthToBinary(string) {
-        return string.split('').map((char) => { // zero-width no-break space
-            if (char === '​') { // zero-width space
+        return string.split('﻿').map((char) => { // invisible &#65279;
+            if (char === '​') { // invisible &#8203;
                 return '1';
-            } else if (char === '‌') {  // zero-width non-joiner
+            } else if (char === '‌') { // invisible &#8204;
                 return '0';
             }
-            return ' '; // add single space
+            return ' '; // split up binary with spaces;
         }).join('')
     }
 

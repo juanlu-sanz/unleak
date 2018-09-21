@@ -16,9 +16,16 @@ body {
 
 #header {
   top: 2vw;
-  display: inline;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;       /* the same as your div height */
+  color: #F2F1EF;
+}
+
+#results {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 40px;       /* the same as your div height */
   color: #F2F1EF;
 }
 
