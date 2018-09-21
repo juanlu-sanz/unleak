@@ -6,6 +6,10 @@ var unleak = function () {
     var elSecret = document.getElementById('secret');
     var elResult = document.getElementById('result');
 
+    var elAdditionalParams = document.getElementById('additional-params');
+    var elEncodedbox = document.getElementById('encoded-box');
+
+    var elResultContainer = document.getElementById('results');
     var elFoundSecret = document.getElementById('result-secret');
 
     //Main object and return
@@ -40,12 +44,20 @@ var unleak = function () {
     function decode() {
         let fullText = elText.value;
         let zeroWidthUsername = fullText.replace(/[^​‌‍﻿]/g, '');
-        console.log('zeroWidthUsername lenght: ' + zeroWidthUsername.length + ' is:' + zeroWidthUsername)
         const binaryUsername = zeroWidthToBinary(zeroWidthUsername);
-        console.log('binaryUsername lenght: ' + binaryUsername.length + ' is:' + binaryUsername)
         const textUsername = binaryToText(binaryUsername);
-        console.log('textUsername lenght: ' + textUsername.length + ' is:' + textUsername)
         elFoundSecret.innerText = textUsername;
+
+        if (textUsername.length > 2) {
+            elResultContainer.classList.remove('hidden');
+            elAdditionalParams.style.display = 'none';
+            elEncodedbox.style.display = 'none'; 
+
+        } else {
+            elResultContainer.classList.add('hidden');
+            elAdditionalParams.style.display = 'block';
+            elEncodedbox.style.display = 'block';
+        }
     }
 
     function insertSecret(method, text, secret) {
