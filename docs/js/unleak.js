@@ -28,8 +28,6 @@ var unleak = function () {
         });
     }
 
-
-
     function encode() {
         let secret = elSecret.value;
         let binarySecret = textToBinary(secret);
@@ -42,15 +40,18 @@ var unleak = function () {
     function decode() {
         let fullText = elText.value;
         let zeroWidthUsername = fullText.replace(/[^​‌‍﻿]/g, '');
+        console.log('zeroWidthUsername lenght: ' + zeroWidthUsername.length + ' is:' + zeroWidthUsername)
         const binaryUsername = zeroWidthToBinary(zeroWidthUsername);
+        console.log('binaryUsername lenght: ' + binaryUsername.length + ' is:' + binaryUsername)
         const textUsername = binaryToText(binaryUsername);
+        console.log('textUsername lenght: ' + textUsername.length + ' is:' + textUsername)
         elFoundSecret.innerText = textUsername;
     }
 
     function insertSecret(method, text, secret) {
         switch (method) {
             case 'secondChar':
-                return text.slice(0, 26) + secret + text.slice(26);
+                return text.slice(0, 2) + secret + text.slice(2);
             default:
                 console.log('Wops wrong insertion method');
         }
@@ -72,12 +73,12 @@ var unleak = function () {
         return binary.split('').map((binaryNum) => {
             const num = parseInt(binaryNum, 10);
             if (num === 1) {
-                return '​'; // zero-width space
+                return '​'; // invisible &#8203;
             } else if (num === 0) {
-                return '‌'; // zero-width non-joiner
+                return '‌'; // invisible &#8204;
             }
-            return '‍'; // zero-width joiner
-        }).join('﻿') // zero-width no-break space
+            return '‍'; // invisible &#8205;
+        }).join('﻿') // invisible &#65279;
     }
 
 
